@@ -1,0 +1,64 @@
+<!-- sidebar.html -->
+{% with current=request.resolver_match.url_name %}
+<!-- sidebar.html -->
+<div class="w-64 bg-gradient-to-b from-indigo-900 via-blue-900 to-slate-800
+            text-gray-100 min-h-screen shadow-xl font-sans flex flex-col">
+
+  <!-- Header -->
+  <div class="p-6 text-2xl font-bold border-b border-white/10 tracking-wide text-indigo-200">
+    Admin Panel
+  </div>
+
+  <!-- Nav -->
+  <nav class="mt-6 space-y-2 text-[15px] px-2 pb-6">
+    <!-- Dashboard -->
+    <a href="{% url 'admin-dashboard' %}"
+       class="block py-2.5 px-4 rounded-lg transition
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300
+              {% if current == 'admin-dashboard' %} bg-indigo-400/50 font-semibold text-white
+              {% else %} hover:bg-indigo-700/50 {% endif %}"
+       {% if current == 'admin-dashboard' %} aria-current="page"{% endif %}>
+      📊 Dashboard
+    </a>
+
+    <!-- Departments -->
+    <a href="{% url 'departments' %}"
+       class="block py-2.5 px-4 rounded-lg transition
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300
+              {% if current == 'departments' %} bg-indigo-400/50 font-semibold text-white
+              {% else %} hover:bg-indigo-700/50 {% endif %}"
+       {% if current == 'departments' %} aria-current="page"{% endif %}>
+      🏫 Manage Departments
+    </a>
+
+    <!-- Courses -->
+    <a href="{% url 'courses' %}"
+       class="block py-2.5 px-4 rounded-lg transition
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300
+              {% if current == 'courses' %} bg-indigo-400/50 font-semibold text-white
+              {% else %} hover:bg-indigo-700/50 {% endif %}"
+       {% if current == 'courses' %} aria-current="page"{% endif %}>
+      📚 Manage Courses
+    </a>
+
+    <!-- Faculty -->
+    <a href="{% url 'faculty' %}"
+       class="block py-2.5 px-4 rounded-lg transition
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300
+              {% if current == 'faculty' %} bg-indigo-400/50 font-semibold text-white
+              {% else %} hover:bg-indigo-700/50 {% endif %}"
+       {% if current == 'faculty' %} aria-current="page"{% endif %}>
+      👨‍🏫 Faculty Allocation
+    </a>
+
+    <!-- Logout (placeholder) -->
+    <form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit"
+          class="flex items-center gap-2 w-full text-left px-4 py-2 rounded transition hover:bg-indigo-500">
+    🚪 Logout
+  </button>
+</form>
+  </nav>
+</div>
+{% endwith %}

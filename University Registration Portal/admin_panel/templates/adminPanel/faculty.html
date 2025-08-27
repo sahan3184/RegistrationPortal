@@ -1,0 +1,45 @@
+{% extends "adminPanel/base.html" %}
+{% block content %}
+<h1 class="text-3xl font-bold text-indigo-900 mb-6">Faculty Allocation</h1>
+
+<form method="post" class="bg-white/90 p-6 rounded-xl shadow-md mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+  {% csrf_token %}
+  <input type="text" name="faculty_id" placeholder="Faculty ID" class="px-4 py-2 border rounded-lg" required>
+  <input type="text" name="name" placeholder="Faculty Name" class="px-4 py-2 border rounded-lg" required>
+  <input type="email" name="email" placeholder="Faculty Email" class="px-4 py-2 border rounded-lg" required>
+  <select name="department" class="px-4 py-2 border rounded-lg" required>
+    <option value="">Select Department</option>
+    {% for d in departments %}<option value="{{ d.id }}">{{ d.name }} ({{ d.code }})</option>{% endfor %}
+  </select>
+  <button type="submit" class="bg-indigo-800 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 col-span-full">Allocate</button>
+</form>
+
+<table class="w-full bg-white/90 rounded-xl shadow-md">
+  <thead>
+    <tr class="bg-indigo-800 text-white">
+      <th class="py-3 px-4 text-left">Faculty ID</th>
+      <th class="py-3 px-4 text-left">Name</th>
+      <th class="py-3 px-4 text-left">Email</th>
+      <th class="py-3 px-4 text-left">Department</th>
+      <th class="py-3 px-4">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in faculties %}
+    <tr class="border-b hover:bg-gray-50">
+      <td class="py-3 px-4 font-mono">{{ f.faculty_id }}</td>
+      <td class="py-3 px-4">{{ f.name }}</td>
+      <td class="py-3 px-4">{{ f.email }}</td>
+      <td class="py-3 px-4">{% if f.department %}{{ f.department.name }} ({{ f.department.code }}){% else %}-{% endif %}</td>
+      <td class="py-3 px-4 text-center">
+        <a href="{% url 'faculty-edit' f.id %}" class="text-indigo-700 hover:underline">Edit</a>
+        <span class="mx-1 text-slate-300">|</span>
+        <a href="{% url 'remove-faculty' f.id %}" class="text-red-600 hover:underline">Remove</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="py-3 px-4 text-center text-gray-500">No faculty allocated yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

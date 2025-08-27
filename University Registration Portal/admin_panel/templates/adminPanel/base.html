@@ -1,0 +1,25 @@
+
+  <!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin Dashboard{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-tr from-indigo-50 via-indigo-100 to-blue-50
+ min-h-screen flex flex-col md:flex-row">
+
+
+  <!-- Sidebar -->
+  {% include "adminPanel/sidebar.html" %}
+
+  <!-- Main Content -->
+  <div class="flex-1 min-h-screen p-6">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>

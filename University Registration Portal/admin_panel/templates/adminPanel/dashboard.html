@@ -1,0 +1,106 @@
+<!-- courses.html -->
+{% extends "adminPanel/base.html" %}
+{% block content %}
+
+<div class="scroll-smooth">
+  <h1 class="text-3xl font-bold text-indigo-900 mb-6">Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <a href="#departments" class="group block rounded-2xl bg-white/95 p-8 shadow-lg ring-1 ring-black/5 hover:shadow-xl hover:-translate-y-0.5 transition active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+      <h2 class="text-lg font-semibold text-indigo-700 group-hover:text-indigo-800">Total Departments</h2>
+      <p class="mt-4 text-3xl font-extrabold text-slate-900">{{ total_departments }}</p>
+    </a>
+
+    <a href="#courses" class="group block rounded-2xl bg-white/95 p-8 shadow-lg ring-1 ring-black/5 hover:shadow-xl hover:-translate-y-0.5 transition active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+      <h2 class="text-lg font-semibold text-indigo-700 group-hover:text-indigo-800">Total Courses</h2>
+      <p class="mt-4 text-3xl font-extrabold text-slate-900">{{ total_courses }}</p>
+    </a>
+
+    <a href="#faculty" class="group block rounded-2xl bg-white/95 p-8 shadow-lg ring-1 ring-black/5 hover:shadow-xl hover:-translate-y-0.5 transition active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+      <h2 class="text-lg font-semibold text-indigo-700 group-hover:text-indigo-800">Faculty Members</h2>
+      <p class="mt-4 text-3xl font-extrabold text-slate-900">{{ total_faculty }}</p>
+    </a>
+  </div>
+
+  <section class="mt-8 space-y-8">
+    <!-- Departments -->
+    <div id="departments" class="hidden target:block bg-white/95 rounded-2xl shadow-lg ring-1 ring-black/5 p-6 scroll-mt-24">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-indigo-800">Departments</h3>
+        <span class="text-sm text-slate-500">Total: {{ total_departments }}</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm">
+          <thead><tr class="text-slate-600 border-b">
+            <th class="py-2 pr-4">Department Name</th>
+            <th class="py-2 pr-4">Department Code</th>
+          </tr></thead>
+          <tbody class="text-slate-800">
+            {% for d in departments %}
+            <tr class="border-b/50"><td class="py-2 pr-4">{{ d.name }}</td><td class="py-2 pr-4">{{ d.code }}</td></tr>
+            {% empty %}<tr><td colspan="2" class="py-4 text-slate-500">No departments yet.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Courses -->
+    <div id="courses" class="hidden target:block bg-white/95 rounded-2xl shadow-lg ring-1 ring-black/5 p-6 scroll-mt-24">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-indigo-800">Courses</h3>
+        <span class="text-sm text-slate-500">Total: {{ total_courses }}</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm">
+          <thead><tr class="text-slate-600 border-b">
+            <th class="py-2 pr-4">Code</th>
+            <th class="py-2 pr-4">Title</th>
+            <th class="py-2 pr-4">Credit</th>
+            <th class="py-2 pr-4">Department</th>
+          </tr></thead>
+          <tbody class="text-slate-800">
+            {% for c in courses %}
+            <tr class="border-b/50">
+              <td class="py-2 pr-4">{{ c.code }}</td>
+              <td class="py-2 pr-4">{{ c.title }}</td>
+              <td class="py-2 pr-4">{{ c.credit }}</td>
+              <td class="py-2 pr-4">{% if c.department %}{{ c.department.code }}{% else %}-{% endif %}</td>
+            </tr>
+            {% empty %}<tr><td colspan="4" class="py-4 text-slate-500">No courses yet.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Faculty -->
+    <div id="faculty" class="hidden target:block bg-white/95 rounded-2xl shadow-lg ring-1 ring-black/5 p-6 scroll-mt-24">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-indigo-800">Faculty Members</h3>
+        <span class="text-sm text-slate-500">Total: {{ total_faculty }}</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm">
+          <thead><tr class="text-slate-600 border-b">
+            <th class="py-2 pr-4">Name</th>
+            <th class="py-2 pr-4">Designation</th>
+            <th class="py-2 pr-4">Department</th>
+            <th class="py-2 pr-4">Email</th>
+          </tr></thead>
+          <tbody class="text-slate-800">
+            {% for f in faculty_members %}
+            <tr class="border-b/50">
+              <td class="py-2 pr-4">{{ f.name }}</td>
+              <td class="py-2 pr-4">—</td>
+              <td class="py-2 pr-4">{% if f.department %}{{ f.department.code }}{% else %}-{% endif %}</td>
+              <td class="py-2 pr-4">{{ f.email }}</td>
+            </tr>
+            {% empty %}<tr><td colspan="4" class="py-4 text-slate-500">No faculty yet.</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+{% endblock %}

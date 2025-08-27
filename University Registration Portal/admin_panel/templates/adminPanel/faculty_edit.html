@@ -1,0 +1,16 @@
+{% extends "adminPanel/base.html" %}
+{% block content %}
+<h1 class="text-3xl font-bold text-indigo-900 mb-6">Edit Faculty: {{ fac.name }}</h1>
+
+<form method="post" class="bg-white/90 p-6 rounded-xl shadow-md mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+  {% csrf_token %}
+  <input type="text" name="faculty_id" value="{{ fac.faculty_id }}" placeholder="Faculty ID" class="px-4 py-2 border rounded-lg" required>
+  <input type="text" name="name" value="{{ fac.name }}" placeholder="Faculty Name" class="px-4 py-2 border rounded-lg" required>
+  <input type="email" name="email" value="{{ fac.email }}" placeholder="Faculty Email" class="px-4 py-2 border rounded-lg" required>
+  <select name="department" class="px-4 py-2 border rounded-lg" required>
+    <option value="">Select Department</option>
+    {% for d in departments %}<option value="{{ d.id }}" {% if d.id == fac.department.id %}selected{% endif %}>{{ d.name }} ({{ d.code }})</option>{% endfor %}
+  </select>
+  <button type="submit" class="bg-indigo-800 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 col-span-full">Update Faculty</button>
+</form>
+{% endblock %}
