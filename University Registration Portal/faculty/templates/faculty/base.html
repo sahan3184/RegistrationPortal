@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Faculty Panel{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-cyan-400 via-teal-500 to-blue-600 min-h-screen flex flex-col md:flex-row">
+
+
+  <!-- Sidebar -->
+  {% include "faculty/sidebar.html" %}
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6 text-white overflow-x-auto">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>

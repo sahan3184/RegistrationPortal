@@ -1,0 +1,46 @@
+<!-- faculty/templates/faculty/student_list.html -->
+{% extends "faculty/base.html" %}
+{% block title %}Student List{% endblock %}
+{% block content %}
+  <!-- Main Content -->
+  <div class="overflow-x-auto">
+    <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">👥 Assigned Student List</h1>
+
+    <div class="bg-white shadow-lg rounded-lg p-4 md:p-6 overflow-x-auto">
+      <table class="w-full min-w-[600px] text-left border-collapse">
+        <thead class="bg-cyan-200 text-cyan-900 text-sm">
+          <tr>
+            <th class="p-3 whitespace-nowrap">Student Name</th>
+            <th class="p-3 whitespace-nowrap">Student ID</th>
+            <th class="p-3 whitespace-nowrap">Batch</th>
+            <th class="p-3 whitespace-nowrap">Email</th>
+            <th class="p-3 whitespace-nowrap">Current Semester</th>
+            <th class="p-3 whitespace-nowrap">Registration Status</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm text-gray-800">
+          {% for student in students %}
+          <tr class="border-b hover:bg-cyan-50">
+            <td class="p-3 font-medium">{{ student.full_name }}</td>
+            <td class="p-3">{{ student.student_id }}</td>
+            <td class="p-3">{{ student.batch }}</td>
+            <td class="p-3">{{ student.user.email }}</td>
+            <td class="p-3">{{ student.current_semester }}</td>
+            <td class="p-3">
+              {% if student.is_cleared_for_registration %}
+                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Cleared</span>
+              {% else %}
+                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Pending</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="p-3 text-center">No students assigned to you</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!-- faculty/templates/faculty/approve_reject.html -->
+{% extends "faculty/base.html" %}
+{% block title %}Approve Registrations{% endblock %}
+{% block content %}
+  <!-- Main Content -->
+  <div>
+    <h1 class="text-3xl font-bold mb-6">✅ Approve Course Registrations</h1>
+
+    {% if enrollments_by_student %}
+      <div class="space-y-6">
+        {% for student_data in enrollments_by_student %}
+        <div class="bg-white text-gray-900 shadow-lg rounded-lg p-6">
+          <div class="mb-4">
+            <h2 class="text-xl font-semibold">{{ student_data.student.full_name }} ({{ student_data.student.student_id }})</h2>
+            <p class="text-gray-600">Semester: {{ student_data.enrollments.0.semester }}</p>
+          </div>
+          
+          <table class="w-full text-left border-collapse table-fixed">
+            <thead class="bg-cyan-200 text-cyan-900 text-sm">
+              <tr>
+                <th class="p-3 w-2/5">Course</th>
+                <th class="p-3 w-1/5">Credit</th>
+                <th class="p-3 text-center w-2/5">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm text-gray-800">
+              {% for enrollment in student_data.enrollments %}
+              <tr class="border-b hover:bg-cyan-50 align-middle">
+                <td class="p-3 align-middle font-medium">
+                  {{ enrollment.course.code }} - {{ enrollment.course.title }}
+                </td>
+                <td class="p-3 align-middle">{{ enrollment.course.credit }}</td>
+                <td class="p-3 text-center align-middle">
+                  <form method="post" class="flex justify-center items-center gap-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="enrollment_id" value="{{ enrollment.id }}">
+                    <button name="action" value="approve" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Approve</button>
+                    <button name="action" value="reject" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Reject</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="bg-white text-gray-900 shadow-lg rounded-lg p-6 text-center">
+        <p class="text-lg">No pending registration requests</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

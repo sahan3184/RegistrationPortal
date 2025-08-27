@@ -1,0 +1,24 @@
+<!-- templates/faculty/faculty_creation.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Create Your Faculty Record</h2>
+  
+  <form method="POST">
+    {% csrf_token %}
+    <label for="faculty_id">Faculty ID:</label>
+    <input type="text" name="faculty_id" id="faculty_id" required><br>
+    
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required><br>
+    
+    <label for="department_id">Department:</label>
+    <select name="department_id" id="department_id" required>
+      {% for department in departments %}
+        <option value="{{ department.id }}">{{ department.name }}</option>
+      {% endfor %}
+    </select><br>
+    
+    <button type="submit">Create Record</button>
+  </form>
+{% endblock %}

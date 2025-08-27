@@ -1,0 +1,52 @@
+<!-- faculty/templates/faculty/dashboard.html -->
+{% extends "faculty/base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+  <!-- Main Content -->
+  <div class="text-gray-800">
+    <h1 class="text-3xl font-bold mb-6">📊 Faculty Dashboard Overview</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Total Students -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-lg font-semibold mb-2">👥 Total Assigned Students</h2>
+        <p class="text-3xl font-bold text-blue-600">{{ advisees_count }}</p>
+      </div>
+
+      <!-- Pending Approvals -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-lg font-semibold mb-2">📥 Pending Registrations</h2>
+        <p class="text-3xl font-bold text-yellow-500">{{ pending_count }}</p>
+      </div>
+
+      <!-- Approved Registrations -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-lg font-semibold mb-2">✅ Approved This Semester</h2>
+        <p class="text-3xl font-bold text-green-600">{{ approved_count }}</p>
+      </div>
+    </div>
+
+    <!-- Faculty Information -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">👤 Your Information</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <p class="text-gray-600">Name</p>
+          <p class="font-medium">{{ faculty.name }}</p>
+        </div>
+        <div>
+          <p class="text-gray-600">Faculty ID</p>
+          <p class="font-medium">{{ faculty.faculty_id }}</p>
+        </div>
+        <div>
+          <p class="text-gray-600">Email</p>
+          <p class="font-medium">{{ faculty.email }}</p>
+        </div>
+        <div>
+          <p class="text-gray-600">Department</p>
+          <p class="font-medium">{{ faculty.department.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
