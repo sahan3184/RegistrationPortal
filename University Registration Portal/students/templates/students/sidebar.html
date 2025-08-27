@@ -1,0 +1,38 @@
+{% with current=request.resolver_match.url_name %}
+  <div class="text-2xl font-bold border-b border-white/20 p-6">🎓 Student Panel</div>
+  <nav class="p-4 space-y-3 text-base">
+    
+    <a href="{% url 'student-dashboard' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded transition
+              {% if current == 'dashboard' %} bg-indigo-400/50 font-semibold
+              {% else %} hover:bg-indigo-500 {% endif %}">
+      🏠 Dashboard
+    </a>
+
+    <a href="{% url 'my_courses' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded transition
+              {% if current == 'my_courses' %} bg-indigo-400/50 font-semibold
+              {% else %} hover:bg-indigo-500 {% endif %}">
+      📚 My Courses
+    </a>
+
+    <a href="{% url 'registration' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded transition
+              {% if current == 'registration' %} bg-indigo-400/50 font-semibold
+              {% else %} hover:bg-indigo-500 {% endif %}">
+      📝 Registration
+    </a>
+
+    <a href="{% url 'result' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded transition
+              {% if current == 'result' %} bg-indigo-400/50 font-semibold
+              {% else %} hover:bg-indigo-500 {% endif %}">
+      🧾 Results
+    </a>
+
+    <a href="{% url 'login' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded transition hover:bg-indigo-500">
+      🚪 Logout
+    </a>
+  </nav>
+{% endwith %}

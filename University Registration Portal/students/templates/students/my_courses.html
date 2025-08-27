@@ -1,0 +1,33 @@
+{% extends "students/base.html" %}
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<main class="flex-1 p-6">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-indigo-700">📚 My Courses</h1>
+    <p class="text-sm text-gray-600">
+      Department: {{ student.department }} |
+      Batch: {{ student.batch }} |
+      Semester: {{ student.current_semester }}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for e in enrollments %}
+    <div class="bg-white border border-gray-200 p-5 rounded-xl shadow hover:shadow-lg transition">
+      <h2 class="text-lg font-semibold text-gray-800">
+        {{ e.course.code }} - {{ e.course.title }}
+      </h2>
+      <p class="text-sm text-gray-500">Credit: {{ e.course.credit }}</p>
+      {% if e.status == 'approved' %}
+        <p class="text-sm text-green-600 font-semibold">Status: {{ e.get_status_display }}</p>
+      {% else %}
+        <p class="text-sm text-yellow-500 font-semibold">Status: {{ e.get_status_display }}</p>
+      {% endif %}
+    </div>
+    {% empty %}
+    <p>No enrollments found in {{ student.current_semester }}.</p>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

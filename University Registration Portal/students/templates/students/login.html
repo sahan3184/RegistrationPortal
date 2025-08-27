@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - University Registration Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-tr from-indigo-100 to-purple-200 text-white">
+
+  <!-- Login Section -->
+  <section class="flex justify-center items-center h-screen">
+    <div class="bg-black bg-opacity-70 rounded-xl shadow-2xl max-w-md w-full p-8">
+      <h1 class="text-3xl font-extrabold mb-6 text-center">Login</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <!-- Login ID (either email or student ID) -->
+        <div class="mb-4">
+          <label for="login_id" class="block text-lg font-semibold">Email / Student ID</label>
+          <input type="text" id="login_id" name="login_id" 
+                 class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                 placeholder="Enter your email or student ID" required>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+          <label for="password" class="block text-lg font-semibold">Password</label>
+          <input type="password" id="password" name="password" 
+                 class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                 placeholder="Enter your password" required>
+        </div>
+
+        <!-- Login Button -->
+        <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out">
+          Login
+        </button>
+      </form>
+
+      <!-- Sign Up Link -->
+      <div class="text-center mt-6">
+        <p class="text-sm">Don't have an account? 
+          <a href="{% url 'signup' %}" class="text-blue-200 hover:text-blue-100 font-semibold">Sign Up</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

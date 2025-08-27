@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - University Registration Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-indigo-100 to-purple-200 text-white">
+
+    <!-- Signup Section -->
+    <section class="flex justify-center items-center h-screen">
+        <div class="bg-opacity-70 bg-black rounded-xl shadow-2xl max-w-md w-full p-8">
+            <h1 class="text-4xl font-extrabold mb-6 text-center">Sign Up</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <!-- Full Name -->
+                <div class="mb-4">
+                    <label for="fullName" class="block text-lg font-semibold">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" required>
+                </div>
+
+                <!-- Varsity Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-lg font-semibold">Varsity Email</label>
+                    <input type="email" id="email" name="email" 
+                           class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Enter your email (e.g., 12345@diu.edu.bd)" 
+                           required pattern="^[a-zA-Z0-9]+@diu\.edu\.bd$" 
+                           title="Enter a valid university email (e.g., rakib22205341183@diu.edu.bd)">
+                </div>
+
+                <!-- Student ID -->
+                <div class="mb-4">
+                    <label for="student_id" class="block text-lg font-semibold">Student ID</label>
+                    <input type="text" id="student_id" name="student_id" 
+                           class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Enter your student ID (e.g., 12345)" 
+                           required>
+                </div>
+
+                <!-- Department -->
+                <div class="mb-4">
+                    <label for="department" class="block text-lg font-semibold">Department</label>
+                    <input type="text" id="department" name="department" 
+                           class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Enter your department" required>
+                </div>
+
+                <!-- Batch -->
+                <div class="mb-4">
+                    <label for="batch" class="block text-lg font-semibold">Batch</label>
+                    <input type="text" id="batch" name="batch" 
+                           class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Enter your batch" required>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-4">
+                    <label for="password" class="block text-lg font-semibold">Password</label>
+                    <input type="password" id="password" name="password" class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" required>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-6">
+                    <label for="confirmPassword" class="block text-lg font-semibold">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="w-full p-3 rounded-md border-2 border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Confirm your password" required>
+                </div>
+
+                <!-- Sign Up Button -->
+                <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out">
+                    Sign Up
+                </button>
+            </form>
+
+            <!-- Login Link -->
+            <div class="text-center mt-6">
+                <p class="text-sm">Already have an account? <a href="{% url 'login' %}" class="text-blue-200 hover:text-blue-100 font-semibold">Login</a></p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

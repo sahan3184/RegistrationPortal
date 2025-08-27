@@ -1,0 +1,144 @@
+{% extends "students/base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<main class="flex-1 p-6 scroll-smooth">
+
+  <!-- Header -->
+  <div class="mb-6 flex justify-between items-center">
+    <h1 class="text-2xl font-semibold text-gray-800">Welcome, {{ student.full_name }} 👋</h1>
+    <div class="text-sm text-gray-600">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-blue-300 rounded-full flex items-center justify-center">
+          <span class="text-white font-semibold">{{ student.full_name|slice:":1" }}</span>
+        </div>
+        <p class="font-semibold">{{ student.full_name }}</p>
+      </div>
+      <p class="mt-2 ml-10">ID: {{ student.student_id }}</p> <!-- Display Student ID here -->
+    </div>
+  </div>
+
+  <!-- Student Info -->
+  <div class="bg-white border border-gray-200 p-4 rounded-lg shadow mb-6">
+    <p><strong>Department:</strong> {{ student.department }}</p>
+    <p><strong>Batch:</strong> {{ student.batch }}</p>
+    <p><strong>Current Semester:</strong> {{ student.current_semester }}</p>
+  </div>
+
+  <!-- Clickable summary cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <a href="#total-credits" class="group bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h2 class="text-sm text-gray-500 group-hover:text-gray-600">Total Credits</h2>
+      <p class="text-3xl font-bold text-indigo-600 mt-1">{{ total_credits|default:0 }}</p>
+    </a>
+
+    <a href="#credit-completion" class="group bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h2 class="text-sm text-gray-500 group-hover:text-gray-600">Credit Completion</h2>
+      <p class="text-3xl font-bold text-purple-600 mt-1">{{ completed_credits|default:0 }}</p>
+    </a>
+
+    <a href="#pending-registration" class="group bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h2 class="text-sm text-gray-500 group-hover:text-gray-600">Pending Registration</h2>
+      <p class="text-3xl font-bold text-red-500 mt-1">{{ pending_count }}</p>
+    </a>
+  </div>
+
+  <!-- Details area -->
+  <section class="space-y-8">
+
+    <!-- Total Credits details -->
+    <div id="total-credits" class="hidden target:block bg-white border border-gray-200 p-6 rounded-xl shadow scroll-mt-28">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">Total Credits</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-600 text-sm">
+              <th class="p-3">Course Code</th>
+              <th class="p-3">Course Title</th>
+              <th class="p-3">Credit</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-700">
+            {% for c in all_courses %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-3">{{ c.code }}</td>
+              <td class="p-3">{{ c.title }}</td>
+              <td class="p-3">{{ c.credit }}</td>
+            </tr>
+            {% empty %}
+            <tr><td class="p-3" colspan="3">No courses found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Credit Completion details -->
+    <div id="credit-completion" class="hidden target:block bg-white border border-gray-200 p-6 rounded-xl shadow scroll-mt-28">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">Credit Completion</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-600 text-sm">
+              <th class="p-3">Completed Code</th>
+              <th class="p-3">Title</th>
+              <th class="p-3">Credit</th>
+              <th class="p-3">Grade</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-700">
+            {% for it in completed_items %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-3">{{ it.course.code }}</td>
+              <td class="p-3">{{ it.course.title }}</td>
+              <td class="p-3">{{ it.credit }}</td>
+              <td class="p-3">{{ it.grade }}</td>
+            </tr>
+            {% empty %}
+            <tr><td class="p-3" colspan="4">No completed courses yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pending Registration details -->
+    <div id="pending-registration" class="hidden target:block bg-white border border-gray-200 p-6 rounded-xl shadow scroll-mt-28">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">Pending Registration</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-100 text-gray-600 text-sm">
+              <th class="p-3">Course Code</th>
+              <th class="p-3">Course Title</th>
+              <th class="p-3">Credit</th>
+              <th class="p-3">Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-700">
+            {% for e in pending_regs %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-3">{{ e.course.code }}</td>
+              <td class="p-3">{{ e.course.title }}</td>
+              <td class="p-3">{{ e.course.credit }}</td>
+              <td class="p-3">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                  {{ e.get_status_display }}
+                </span>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td class="p-3" colspan="4">No pending registration.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-sm text-gray-500">
+      <span class="hidden md:inline">Tip:</span>
+      Click a card above to show its details here.
+    </div>
+  </section>
+</main>
+{% endblock %}

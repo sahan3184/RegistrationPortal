@@ -1,0 +1,64 @@
+{% extends "students/base.html" %}
+{% block title %}Course Registration{% endblock %}
+
+{% block content %}
+<main class="flex-1 p-6">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-indigo-800 mb-1">📝 Course Registration</h1>
+    <p class="text-sm text-gray-600">
+      Department: {{ student.department }} | Batch: {{ student.batch }} | Semester: {{ student.current_semester }}
+    </p>
+  </div>
+
+  {% if not is_cleared %}
+  <div class="bg-red-100 text-red-700 p-4 rounded mb-6">
+    ⚠️ You are not cleared to register for this semester.
+  </div>
+  {% endif %}
+
+  <div class="bg-white p-6 rounded-xl shadow overflow-x-auto">
+    <table class="w-full text-sm text-left border-collapse">
+      <thead class="text-gray-600 bg-gray-100">
+        <tr>
+          <th class="p-3">Course Code</th>
+          <th class="p-3">Course Name</th>
+          <th class="p-3">Credit</th>
+          <th class="p-3">Action</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        {% for c in available_courses %}
+        <tr class="hover:bg-gray-50">
+          <td class="p-3">{{ c.code }}</td>
+          <td class="p-3">{{ c.title }}</td>
+          <td class="p-3">{{ c.credit }}</td>
+          <td class="p-3">
+            <form method="post" action="{% url '#">
+              {% csrf_token %}
+              <button type="submit"
+                      class="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 disabled:opacity-50"
+                      {% if not is_cleared %}disabled{% endif %}>
+                Register
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td class="p-3" colspan="4">No available courses to register.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6">
+    <h3 class="font-semibold mb-2">Already Selected ({{ current_enrollments|length }})</h3>
+    <ul class="list-disc ml-6 text-sm text-gray-700">
+      {% for e in current_enrollments %}
+        <li>{{ e.course.code }} - {{ e.course.title }} ({{ e.get_status_display }})</li>
+      {% empty %}
+        <li>No courses selected yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock %}
