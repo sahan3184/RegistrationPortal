@@ -1,0 +1,22 @@
+{% comment %} {% load static %}
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head><body class="min-h-screen bg-gradient-to-tr from-indigo-100 to-purple-200">
+<section class="h-screen flex items-center justify-center p-4">
+  <form method="post" action="{% url 'login' %}" class="bg-white/90 rounded-xl shadow-xl p-8 w-full max-w-md">
+    {% csrf_token %}
+    <h1 class="text-2xl font-bold text-indigo-900 mb-6 text-center">Sign in</h1>
+    {% if form.errors %}<p class="text-rose-600 text-sm mb-3">Invalid credentials.</p>{% endif %}
+    <label class="block text-sm font-medium text-slate-700">Username</label>
+    <input name="username" required class="w-full mb-4 p-3 rounded-lg border focus:ring-2 focus:ring-indigo-500"/>
+    <label class="block text-sm font-medium text-slate-700">Password</label>
+    <input type="password" name="password" required class="w-full mb-6 p-3 rounded-lg border focus:ring-2 focus:ring-indigo-500"/>
+    <button class="w-full bg-indigo-700 text-white py-3 rounded-lg hover:bg-indigo-600">Login</button>
+    <p class="text-center text-sm mt-4">No account?
+      <a class="text-indigo-700 font-semibold" href="{% url 'signup' %}">Sign up</a>
+    </p>
+  </form>
+</section>
+</body></html> {% endcomment %}
